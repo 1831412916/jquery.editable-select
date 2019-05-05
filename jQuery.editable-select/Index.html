@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>输入下拉插件</title>
+    <script src="Content/jQuery/jquery-2.1.1.min.js"></script>
+    <link href="Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="Content/bootstrap/bootstrap.js"></script>
+    <link href="Content/jquery.editable-select/jquery.editable-select.min.css" rel="stylesheet" />
+    <script src="Content/jquery.editable-select/jquery.editable-select.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var data = [
+                { 'id': 1, 'name': '测试数据1' },
+                { 'id': 2, 'name': '测试数据2' },
+                { 'id': 3, 'name': '测试数据3' },
+                { 'id': 4, 'name': '测试数据4' },
+                { 'id': 5, 'name': '测试数据5' },
+                { 'id': 6, 'name': '测试数据6' },
+                { 'id': 7, 'name': '测试数据7' }
+            ];
+            $.each(data, function (i, r) {
+                $('#editable-select').append('<option data-id="' + r["id"] + '">' + r["name"] + '</option>');
+            });
+            $('#editable-select').editableSelect({
+                effects: 'slide',//点击的时候，下拉框的过渡效果  有default，slide，fade三个值，默认是default
+                filter: true,//选择option以后，是否过滤  默认 true
+                duration: 'fast',//下拉选项框展示的过度动画速度
+                onSelect: function (obj) {
+                    console.log("下拉框选项被选中");
+                    var id = $(obj).attr('data-id');//获取当前数据的id
+                    var name = $(obj).text();//获取当前数据的name
+                    console.info(id + '===' + name);
+                },
+                onCreate: function () {
+                    console.log("下拉框创建");
+                },
+                onShow: function() {
+                    console.log("下拉框显示");
+                },
+                onHide: function() {
+                    console.log("下拉框隐藏");
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div style="width:200px;height:200px;text-align:center;margin:200px 40% auto;border:none;">
+        <select id="editable-select" class="form-control es-input"></select>
+    </div>
+</body>
+</html>
